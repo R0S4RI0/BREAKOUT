@@ -1,38 +1,50 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;  // Necesario para trabajar con los botones
+using UnityEngine.UI;  
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Referencias a los botones
-    [SerializeField] private Button playButton; // Botón de Jugar
-    [SerializeField] private Button optionsButton; // Botón de Opciones
 
-    private void Start()
+    [SerializeField] private GameObject panelOpciones;  // El panel de opciones
+    [SerializeField] private Button botonJugar;  // El botón de jugar
+    [SerializeField] private Button botonOpciones;  // El botón de opciones
+    [SerializeField] private Button botonSalir;  // El botón de salir
+    [SerializeField] private Button botonVolver;  // El botón de volver (en el panel de opciones)
+
+    void Start()
     {
-        // Aseguramos que los botones estén correctamente asignados en el Inspector
-        if (playButton != null)
-        {
-            playButton.onClick.AddListener(OnPlayButtonClicked); // Añado un listener para que se ejecute una función cuando se haga clic en el botón de "Jugar"
-        }
-
-        if (optionsButton != null)
-        {
-            optionsButton.onClick.AddListener(OnOptionsButtonClicked); // Añado un listener para que se ejecute una función cuando se haga clic en el botón de "Opciones"
-        }
+        // Asignar las acciones de los botones
+        botonJugar.onClick.AddListener(CargarJuego);
+        botonOpciones.onClick.AddListener(AbrirPanelOpciones);
+        botonSalir.onClick.AddListener(SalirJuego);
+        botonVolver.onClick.AddListener(CerrarPanelOpciones);
     }
 
-    // Función que se ejecutará cuando se haga clic en el botón Jugar
-    private void OnPlayButtonClicked()
+    // Método para cargar la escena del juego
+    void CargarJuego()
     {
-        // Aquí cargo la primera escena del juego 
-        SceneManager.LoadScene("Level1Scene");  
+        SceneManager.LoadScene("Level1Scene");
     }
 
-    // Función que se ejecutará cuando se haga clic en el botón Opciones
-    private void OnOptionsButtonClicked()
+    // Método para abrir el panel de opciones
+    void AbrirPanelOpciones()
     {
-        // Aquí cargare obciones de volumen 
-        SceneManager.LoadScene("OptionsScene");  
+        panelOpciones.SetActive(true);
+
+    }
+
+    // Método para cerrar el panel de opciones
+    void CerrarPanelOpciones()
+    {
+        panelOpciones.SetActive(false);
+
+    }
+
+    // Método para salir del juego
+    void SalirJuego()
+    {
+        Application.Quit();  // Cierra la aplicación
+        Debug.Log("Juego cerrado"); 
     }
 }
+
